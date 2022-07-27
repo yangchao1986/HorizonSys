@@ -55,7 +55,7 @@ const routes=[
             {
               path:'/sample/sampleList',
               name:'样本列表',
-              component:()=>import('../view/sample/sampleList'),
+              component:()=>import('../view/sample/SampleList'),
             }
           ]
         },
