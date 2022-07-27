@@ -1,10 +1,6 @@
-<!-- 注释快捷键Ctrl+Shift+/ -->
 <template>
   <div id="layout">
-    <!-- ：相当于v-bind,@相当于v-on -->
-    <!-- 左侧导航区-->
     <MyMenu class="menu" :isCollapse='isCollapse'/>
-    <!-- 右侧内容区-->
     <Content class="content" :class="{isActive:isCollapse}" @changeCollapse='changeCollapse' :isCollapse='isCollapse'/>
   </div>
 </template>
@@ -34,7 +30,6 @@
 
 <style lang="scss" scoped>
     .menu{
-      //width:200px;
       min-height: 500px;
       background-color: #666;
       position: fixed;

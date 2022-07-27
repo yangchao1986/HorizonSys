@@ -36,8 +36,8 @@
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination.vue' //分页组件
-  import AddUser from './AddUser.vue' //添加用户组件
+  import Pagination from '@/components/Pagination.vue' 
+  import AddUser from './AddUser.vue' 
 
   export default{
     components:{
@@ -47,16 +47,15 @@
     data(){
       return{
         input: "",
-        tableData: [],    //数据源
-        total: 10,        //初始化分页组建总页码
-        pageSize: 1,      //初始化分页组件数据条数
-        type: 1,           //定义一个参数与搜索数据区分
-        dialogVisible: false, //默认弹窗关闭
-        currentPage: 1     //当前页码
+        tableData: [],    
+        total: 10,        
+        pageSize: 1,      
+        type: 1,           
+        dialogVisible: false, 
+        currentPage: 1    
       }
     },
     methods: {
-      /* 分页页码 */
       changePage(num){
         this.currentPage=num;
         if(this.type==1){
@@ -65,7 +64,6 @@
           this.tableData = this.list.slice((num-1)*3,num*3)
         }
       },
-      /* 用户列表 */
       userList(page){
         this.$api.getUserList({
           page
@@ -78,28 +76,23 @@
           }
         })
       },
-
-      /* 添加用户--弹窗 */
       changeDialog(){
         this.dialogVisible = false
       },
-      /* 添加用户 */
       addUser(){
         this.$refs.dialog.dialogVisible = true
       },
-      /* 删除用户 */
       delUser(index, row) {
         this.$confirm("此操作将彻底删除用户信息，是否继续?","提示",{
           confirmButtonText: "确定",
           cancelButton: "取消",
           type:"warning"
         }).then(()=>{
-          //根据id删除样本信息
           this.$api.delUser({
             id:row.id
           }).then(res=>{
               if(res.data.status==200){
-                this.userList(1) //刷新信息页面
+                this.userList(1) 
                 this.$message({message:'删除成功!',type:'success'})
               }else{
                 this.$message.error('删除失败!')
@@ -109,27 +102,22 @@
           this.$message({type: "info", message: "已取消删除!"})
         })
       },
-      /* 搜索用户 */
       searchUser(){
-        //如果是空置则返回样本列表
-        this.currentPage = 1;  //当前页码
-        var val = this.input;  //绑定查询按钮获取输入的值
-        //空值时返回样本列表
+        this.currentPage = 1; 
+        var val = this.input;  
         if(!val){
-          this.userList(1); //初始化用户列表
-          this.type = 1;    //解决搜索过后type=2,再空值搜索返回样本列表时仍然type=2，展示的数据就还是搜索数据，这步触发type=1才能真正返回样本列表。
+          this.userList(1); 
+          this.type = 1;    
           return
         }
-        //如果不是空置,就正常检索
         this.$api.getSearchUser({
           search:val
         }).then(res =>{
           if(res.data.status == 200){
             this.total = res.data.result.length;
-            //this.pageSize = 3; //限制数据为3条
-            this.tableData = res.data.result.slice(0,3); //对获取的数据进行分割处理，建议放到后台处理以减少前台的压力
+            this.tableData = res.data.result.slice(0,3); 
             this.list = res.data.result;
-            this.type = 2;  //将搜索数据源编组为2
+            this.type = 2; 
           }else{
             this.tableData = [];
             this.total = 1;
@@ -137,25 +125,17 @@
           }
         })
       },
-      /* 编辑用户 */
       editUser(index, row) {
         console.log('编辑用户');
       },
 
 
     },
-
-    /* 生命周期函数 */
     created(){
       this.userList(1)
     }
-
 }
-
-
-
 </script>
-
 <style lang="scss" scoped>
   #user{
     margin: 10px;

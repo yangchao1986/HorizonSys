@@ -177,7 +177,6 @@
           assets: '',          //资产编号
           remarks: '',         //备注信息
           },
-          /* 表单验证*/
           rules: {
             code: [
               { required: true, message: '请填入物料编码', trigger: 'blur' },
@@ -209,14 +208,13 @@
         };
       },
       methods: {
-        /* 表单提交*/
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
               this.$api.addMaterial(this.ruleForm).then(res=>{
                 if(res.data.status==200){
                   this.$message({message:'提交成功!',type:'success'});
-                  setTimeout(()=>{this.resetForm(formName); this.$parent.materialList(1);},1000)//重置表单,刷新父组件
+                  setTimeout(()=>{this.resetForm(formName); this.$parent.materialList(1);},1000)
                 }else {
                   this.$message.error('提交失败!')
                   return false;
@@ -225,7 +223,6 @@
              }
           });
         },
-        /* 表单重置*/
         resetForm(formName) {
           this.$refs[formName].resetFields();
         }
@@ -233,7 +230,7 @@
     };
 </script>
 <style lang="scss" scoped>
-.demo-ruleForm{
-  margin-top: -20px;
-}
+  .demo-ruleForm{
+    margin-top: -20px;
+  }
 </style>

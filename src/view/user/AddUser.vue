@@ -1,7 +1,5 @@
 <template>
-    <!-- 添加表单 -->
     <el-dialog :visible.sync="dialogVisible" top="5vh" width="40%" :close-on-click-modal="false">
-          <!-- 增加标题 也可以在el-dialog标签的title属性下赋值-->
           <template slot="title">
               <span>添加用户</span>
               <el-divider></el-divider>
@@ -77,7 +75,6 @@
               if (!value) {
                 return callback(new Error('用户名不能为空'));
               }
-              //调用接口，但是可以使用定时任务的方式模拟接口的调用
               setTimeout(() => {
                 if ( value.length<6 || value.length>12 ) {
                   callback(new Error('用户名不得小于6个或大于20个字符'));
@@ -143,16 +140,15 @@
       };
     },
     methods: {
-      /* 表单提交*/
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.ruleForm.avatar = this.$refs['avatar'].getAvatarUrl();
-            this.ruleForm.password = this.$crypt.setEncrypt(this.ruleForm.password)  //密码加密
+            this.ruleForm.password = this.$crypt.setEncrypt(this.ruleForm.password)  
             this.$api.addUser(this.ruleForm).then(res=>{
               if(res.data.status==200){
-                this.$parent.userList(1)     //刷新父组件
-                this.resetForm(formName);    //重置表单
+                this.$parent.userList(1)     
+                this.resetForm(formName);   
                 this.$message({message:'提交成功!',type:'success'});
               }else {
                 this.$message.error('提交失败!')
@@ -162,7 +158,6 @@
            }
         });
       },
-      /* 表单重置*/
       resetForm(formName) {
         this.$refs[formName].resetFields();
         this.$refs['avatar'].resetUrl();

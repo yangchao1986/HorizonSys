@@ -20,8 +20,7 @@
         return {
           checkAll: false,
           testOptions: testOptions,
-          isIndeterminate: false, //'全选'的不确定状态，也就是全选框显示部分选择
-          //checked: [], //初始化选择值
+          isIndeterminate: false,
           ruleForm:{
             checked: [],
           },
